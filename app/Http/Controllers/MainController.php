@@ -17,11 +17,14 @@ class MainController extends Controller
      */
     public function index()
     {
+        $total=0;
         $description = 0;
         $student = Session('student');
         $result = Results::where('students_id',$student['id'])->get();
-        $total = $result->sum('points_id');
-//        dd($result);
+        foreach ($result as $res){
+            $total += $res->points->name ;
+        }
+  
          switch ($total){
              case($total>14 && $total<20):
                  $description = 1;
